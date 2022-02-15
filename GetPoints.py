@@ -28,7 +28,7 @@ for format in urls:
     formatData[format] = {} 
     url = urls[format]
     response = requests.get(url)
-    soup = BeautifulSoup(response.text, "html.parser")
+    soup = BeautifulSoup(response.text.replace('\u201c', '"').replace('\u201d', '"').replace('\u2019', "'"), "html.parser")
     if format == 'Australian':
         for column in soup.find_all('h5'):
             point = re.sub(' .*', '', column.get_text())
@@ -60,7 +60,7 @@ uniqueCards = []
 
 for formatinfo in formatData:
     for card in [*formatData[formatinfo]]:
-        uniqueCards.append(card.replace('’', "'"))
+        uniqueCards.append(card)
 
 cardInformation = {}
 
