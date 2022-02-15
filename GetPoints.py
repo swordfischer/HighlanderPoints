@@ -43,8 +43,12 @@ for format in urls:
             formatData[format][td[0].get_text()] = td[1].get_text()
 
     if format == 'European':
-        for card in soup.find_all('a', {"class": "deckbox_link"}):
-            formatData[format][card.get_text()] = 'Banned'
+        content = soup.find('div', {"class": "post-content"})
+        cards = content.find_all('div', {'class': 'vc_row'})[1]
+        
+        for card in cards.find_all('li'):
+            if not card.parent('del'):
+                formatData[format][card.get_text()] = 'Banned'
 
     if format == 'Scandinavian':
         list = json.loads(response.text)['pointsList']
