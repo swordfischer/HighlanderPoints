@@ -34,7 +34,6 @@ for format in urls:
             point = re.sub(' .*', '', column.get_text())
             child = column.find_next('p').stripped_strings
             for card in child:
-                print(point + ' ' + card)
                 formatData[format][card] = point
 
     if format == 'Canadian':
