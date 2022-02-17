@@ -32,9 +32,9 @@ for format in urls:
     if format == 'Australian':
         for column in soup.find_all('h5'):
             point = re.sub(' .*', '', column.get_text())
-            parent = column.find_parent('div', {'class': 'elementor-widget-wrap'})
-            child = parent.find('p').stripped_strings
+            child = column.find_next('p').stripped_strings
             for card in child:
+                print(point + ' ' + card)
                 formatData[format][card] = point
 
     if format == 'Canadian':
